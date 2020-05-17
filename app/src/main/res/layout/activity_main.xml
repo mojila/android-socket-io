@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Send Command"
         app:layout_constraintTop_toBottomOf="@id/hello"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:onClick="sendCommand"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

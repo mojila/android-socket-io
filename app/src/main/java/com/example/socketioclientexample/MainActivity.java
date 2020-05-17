@@ -19,23 +19,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button buttonSendCommand = findViewById(R.id.button2);
-
-        buttonSendCommand.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendCommand();
-            }
-        });
-
         mSocket.on("to_mobile", onNewMessage);
         mSocket.connect();
-    }
-
-    private void sendCommand() {
-        String message = "Dari Mobile";
-
-        mSocket.emit("from_mobile", message);
     }
 
     private Socket mSocket;
@@ -50,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private Emitter.Listener onNewMessage = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
+            /*
+            * Listener
+            * args[0].toString() merupakan data yang diperoleh */
             System.out.println(args[0].toString());
         }
     };
@@ -59,5 +47,13 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         mSocket.disconnect();
+    }
+
+    /*
+    * Contoh untuk mengirim data ke raspi dari mobile*/
+    public void sendCommand(View view) {
+        String message = "Dari Mobile";
+
+        mSocket.emit("from_mobile", message);
     }
 }
